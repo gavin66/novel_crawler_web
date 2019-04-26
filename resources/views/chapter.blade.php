@@ -9,10 +9,14 @@
 <body>
 <div class="flex-center position-ref full-height">
     <div class="content">
-        @foreach($chapter as $row)
+        @foreach($chapter['content'] as $row)
             {{$row}}<br>
         @endforeach
     </div>
+
+    <a href='/chapter?url={{urlencode($chapter['previous'])}}'>上一章</a>
+    <a href='/chapters?url={{urlencode($chapter['chapters'])}}'>目录</a>
+    <a href='/chapter?url={{urlencode($chapter['next'])}}'>下一章</a>
 </div>
 </body>
 </html>
