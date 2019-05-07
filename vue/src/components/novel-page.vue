@@ -3,6 +3,7 @@
     <header class="header">
       <h1>{{title}}</h1>
       <i @click="back" class="cubeic-back"></i>
+      <slot name="more" class="novel-home"></slot>
     </header>
     <div class="wrapper">
       <section v-show="desc" class="desc">
@@ -77,10 +78,19 @@
         color: #fc9153
         font-size: 0.5rem
 
+      .novel-home
+        position: absolute
+        top: 0
+        right: 0
+        padding: 0 0.4rem
+        color: #fc9153
+        font-size: 0.5rem
+
     > .wrapper
       height: calc(100% - 44px)
       overflow-x: hidden
       overflow-y: auto
+      -webkit-overflow-scrolling: touch
 
       .desc
         padding: 0.25rem

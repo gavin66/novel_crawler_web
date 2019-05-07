@@ -1,11 +1,5 @@
 <template>
   <div id="app">
-    <header class="novel-bar">
-      <h1>阅读</h1>
-    </header>
-    <section class="novel-content">
-      <router-link class="link" to="/search">去搜索</router-link>
-    </section>
     <novel-view></novel-view>
   </div>
 </template>

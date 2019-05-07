@@ -1,5 +1,6 @@
 <template>
   <novel-page type="catalog-view" :title="title">
+    <i slot="more" class="cubeic-home novel-home" @click="goHome"></i>
     <div slot="content">
       <div class="wrapper">
         <div class="catalog">
@@ -9,7 +10,7 @@
           </div>
           <div class="catalog-chapters">
             <ul class="chapters-ul">
-              <li class="chapter-li" v-for="chapter in catalog">
+              <li class="chapter-li" v-for="chapter in catalog" v-bind:key="chapter.link">
                 <router-link :to="routerLink(chapter.link)" class="chapter-li-a">{{chapter.name}}</router-link>
               </li>
             </ul>
@@ -27,9 +28,9 @@
   export default {
     data() {
       return {
-        title: '绿茵峥嵘',
+        title: this.$route.params.title,
         order: '倒序',
-        catalog: []
+        catalog: null
       }
     },
     created: function () {
@@ -53,9 +54,13 @@
         return {
           name: 'chapter',
           params: {
-            'path': path
+            'path': path,
+            'catalog_path': this.$route.params.path
           }
         }
+      },
+      goHome: function () {
+        this.$router.push({name: 'home'})
       },
     },
     components: {

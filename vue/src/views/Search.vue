@@ -1,12 +1,16 @@
 <template>
   <novel-page type="search-view" title="图书搜索">
+    <i slot="more" class="cubeic-home novel-home" @click="goHome"></i>
     <div slot="content">
       <cube-input v-model="keywords" :placeholder="placeholder" :maxlength="maxlength" :autofocus="autofocus"
-                  :clearable="clearable" v-on:keyup.enter.native="search"></cube-input>
+                  :clearable="clearable" v-on:keyup.enter.native="search">
+        <cube-button inline="true" slot="append" @click="search">Go</cube-button>
+      </cube-input>
+
       <div class="result">
         <ul class="books">
-          <li v-for="book in books">
-            <router-link :to="routerLink(book.link)" class="book-layout">
+          <li v-for="book in books" v-bind:key="book.link">
+            <router-link :to="routerLink(book.link,book.name)" class="book-layout">
               <img src="https://bookcover.yuewen.com/qdbimg/349573/1011026048/150" alt="" class="book-cover">
               <div class="book-cell">
                 <h3>{{ book.name }}<span class="status">{{ book.recent_date}}</span></h3>
@@ -59,13 +63,17 @@
               })
         }
       },
-      routerLink: function (path) {
+      routerLink: function (path, title) {
         return {
           name: 'catalog',
           params: {
-            'path': path
+            'path': path,
+            'title': title
           }
         }
+      },
+      goHome: function () {
+        this.$router.push({name: 'home'})
       },
     },
     components: {

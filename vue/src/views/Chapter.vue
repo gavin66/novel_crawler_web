@@ -1,11 +1,12 @@
 <template>
   <novel-page type="chapter-view" :title="title">
+    <i slot="more" class="cubeic-more novel-home" @click="goCatalog"></i>
     <div slot="content">
       <div class="chapter">
         <article class="chapter-article">
-          <p v-for="row in article">{{ row }}</p>
+          <p v-for="row in article" v-bind:key="row">{{ row }}</p>
         </article>
-        <div class="next">
+        <div class="next" v-if="next">
           <router-link :to="routerLink(next)" class="chapter-li-a">下一章</router-link>
         </div>
       </div>
@@ -22,10 +23,11 @@
       return {
         title: '', // 章节名
         article: [], // 正文
-        next: '/' // 下一章
+        next: '' // 下一章
       }
     },
     created: function () {
+      console.log(this.$route.params)
       this.chapter(this.$route.params.path)
     },
     methods: {
@@ -36,6 +38,9 @@
             'path': path
           }
         }
+      },
+      goCatalog: function () {
+        this.$router.push({name: 'catalog', params: {'path': this.$route.params.catalog_path}})
       },
       chapter: function (path) {
         axios.get('/api/chapter', {
@@ -54,7 +59,7 @@
       }
     },
     watch: {
-      '$route'(to, from) {
+      '$route'(to) {
         this.chapter(to.params.path)
       }
     },
@@ -72,7 +77,7 @@
   div.chapter
     .chapter-article
       font-size: 0.4rem
-      line-height: 0.6rem
+      line-height: 0.7rem
       overflow: hidden
       text-align: justify
 
