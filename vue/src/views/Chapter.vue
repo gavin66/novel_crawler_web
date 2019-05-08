@@ -4,7 +4,7 @@
     <div slot="content">
       <div class="chapter">
         <article class="chapter-article">
-          <p v-for="row in article" v-bind:key="row">{{ row }}</p>
+          <p v-for="row in article">{{ row }}</p>
         </article>
         <div class="next" v-if="next">
           <router-link :to="routerLink(next)" class="chapter-li-a">下一章</router-link>
